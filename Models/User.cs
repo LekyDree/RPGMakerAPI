@@ -24,6 +24,5 @@ namespace RPGMakerAPI.Models
         // Navigation Properties
         public ICollection<Character> Characters { get; set; } = new List<Character>();
         public ICollection<AbilityTemplate> CreatedAbilities { get; set; } = new List<AbilityTemplate>();
-        public ICollection<AbilityTemplateContributor> Contributions { get; set; } = new List<AbilityTemplateContributor>();
     }
 }

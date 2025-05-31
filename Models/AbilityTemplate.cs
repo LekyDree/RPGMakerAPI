@@ -26,6 +26,6 @@ namespace RPGMakerAPI.Models
         // Navigation properties
         public User CreatedByUser { get; set; } = null!;
         public ICollection<AbilityTag> Tags { get; set; } = new List<AbilityTag>();
-        public ICollection<AttributeTemplate> Attributes { get; set; } = new List<AttributeTemplate>();
+        public ICollection<AttributeTemplate> AttributeTemplates { get; set; } = new List<AttributeTemplate>();
     }
 }
