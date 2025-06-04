@@ -24,7 +24,7 @@ namespace RPGMakerAPI.Models
         public DateTime CreatedAt { get; set; }
 
         // Navigation properties
-        public User CreatedByUser { get; set; } = null!;
+        public User? CreatedByUser { get; set; }
         public ICollection<AbilityTag> Tags { get; set; } = new List<AbilityTag>();
         public ICollection<AttributeTemplate> AttributeTemplates { get; set; } = new List<AttributeTemplate>();
     }

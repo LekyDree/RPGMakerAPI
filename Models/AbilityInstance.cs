@@ -26,7 +26,7 @@ namespace RPGMakerAPI.Models
         public int PointsAllocated { get; set; }
 
         [Required]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         // Navigation Properties
         public Character? Character { get; set; }
