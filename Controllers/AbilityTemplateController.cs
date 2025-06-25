@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RPGMakerAPI.Data;
@@ -45,6 +46,34 @@ namespace RPGMakerAPI.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetAbilityTemplate), new { id = template.Id }, template);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchAbilityTemplate(int id, [FromBody] JsonPatchDocument<AbilityTemplate> patchDoc)
+        {
+            if (patchDoc == null)
+                return BadRequest();
+
+            var abilityTemplate = await _context.AbilityTemplates.FindAsync(id);
+
+            if (abilityTemplate == null)
+                return NotFound();
+
+            // Validate only 'replace' operations are allowed
+            foreach (var op in patchDoc.Operations)
+            {
+                if (!string.Equals(op.op, "replace", StringComparison.OrdinalIgnoreCase))
+                    return BadRequest($"Only 'replace' operations are allowed. Invalid op: {op.op}");
+            }
+
+            patchDoc.ApplyTo(abilityTemplate, ModelState);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent(); // 204 No Content
         }
 
         // PUT: api/abilitytemplate/5

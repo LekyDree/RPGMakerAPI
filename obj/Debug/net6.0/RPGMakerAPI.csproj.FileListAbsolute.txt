@@ -47,3 +47,7 @@ C:\Code\RPGMakerAPI\obj\Debug\net6.0\refint\RPGMakerAPI.dll
 C:\Code\RPGMakerAPI\obj\Debug\net6.0\RPGMakerAPI.pdb
 C:\Code\RPGMakerAPI\obj\Debug\net6.0\RPGMakerAPI.genruntimeconfig.cache
 C:\Code\RPGMakerAPI\obj\Debug\net6.0\ref\RPGMakerAPI.dll
+C:\Code\RPGMakerAPI\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Code\RPGMakerAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Code\RPGMakerAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Code\RPGMakerAPI\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
