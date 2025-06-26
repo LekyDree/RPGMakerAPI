@@ -6,9 +6,9 @@ namespace RPGMakerAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AbilityTemplateController : BaseController<AbilityTemplate>
+    public class CharacterController : BaseController<Character>
     {
-        public AbilityTemplateController(RPGMakerContext context) : base(context)
+        public CharacterController(RPGMakerContext context) : base(context)
         {
         }
     }

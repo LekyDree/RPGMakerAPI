@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RPGMakerAPI.Data;
 
@@ -10,9 +11,11 @@ using RPGMakerAPI.Data;
 namespace RPGMakerAPI.Migrations
 {
     [DbContext(typeof(RPGMakerContext))]
-    partial class RPGMakerContextModelSnapshot : ModelSnapshot
+    [Migration("20250625181022_MadeCreatedAtInterface")]
+    partial class MadeCreatedAtInterface
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,8 +173,7 @@ namespace RPGMakerAPI.Migrations
                     b.Property<bool>("CurrentValue")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<bool?>("DefaultValue")
-                        .IsRequired()
+                    b.Property<bool>("DefaultValue")
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("AttributeId");
@@ -184,8 +186,7 @@ namespace RPGMakerAPI.Migrations
                     b.Property<int>("AttributeId")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("DefaultValue")
-                        .IsRequired()
+                    b.Property<bool>("DefaultValue")
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("AttributeId");
@@ -302,12 +303,10 @@ namespace RPGMakerAPI.Migrations
                     b.Property<int>("AttributeId")
                         .HasColumnType("int");
 
-                    b.Property<float?>("CurrentValue")
-                        .IsRequired()
+                    b.Property<float>("CurrentValue")
                         .HasColumnType("float");
 
-                    b.Property<float?>("DefaultValue")
-                        .IsRequired()
+                    b.Property<float>("DefaultValue")
                         .HasColumnType("float");
 
                     b.HasKey("AttributeId");
@@ -320,8 +319,7 @@ namespace RPGMakerAPI.Migrations
                     b.Property<int>("AttributeId")
                         .HasColumnType("int");
 
-                    b.Property<float?>("DefaultValue")
-                        .IsRequired()
+                    b.Property<float>("DefaultValue")
                         .HasColumnType("float");
 
                     b.HasKey("AttributeId");

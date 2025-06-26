@@ -6,9 +6,9 @@ namespace RPGMakerAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AbilityTemplateController : BaseController<AbilityTemplate>
+    public class EnumDefinitionController : BaseController<EnumDefinition>
     {
-        public AbilityTemplateController(RPGMakerContext context) : base(context)
+        public EnumDefinitionController(RPGMakerContext context) : base(context)
         {
         }
     }

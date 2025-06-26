@@ -9,10 +9,10 @@ namespace RPGMakerAPI.Models
         public int AttributeId { get; set; }
 
         [Required]
-        public float DefaultValue { get; set; }
+        public float? DefaultValue { get; set; }
 
         [Required]
-        public float CurrentValue { get; set; }
+        public float? CurrentValue { get; set; }
 
         [ForeignKey(nameof(AttributeId))]
         public AttributeInstance? AttributeInstance { get; set; }

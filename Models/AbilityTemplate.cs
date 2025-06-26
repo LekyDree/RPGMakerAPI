@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class AbilityTemplate
+    public class AbilityTemplate : IHasCreatedAt
     {
         public int Id { get; set; }
 

@@ -12,11 +12,12 @@ namespace RPGMakerAPI.Models
         [Required]
         public int EnumDefinitionId { get; set; }
 
-        public AttributeTemplate? AttributeTemplate { get; set; }
-        public EnumDefinition? EnumDefinition { get; set; }
-
+        [Required]
         public int DefaultOptionId { get; set; }
 
+
+        public AttributeTemplate? AttributeTemplate { get; set; }
+        public EnumDefinition? EnumDefinition { get; set; }
         public EnumOption? DefaultOption { get; set; }
     }
 

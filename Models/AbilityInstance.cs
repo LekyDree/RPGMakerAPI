@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class AbilityInstance
+    public class AbilityInstance : IHasCreatedAt
     {
         public int Id { get; set; }
 
@@ -19,14 +20,13 @@ namespace RPGMakerAPI.Models
         [StringLength(1000)]
         public string? Description { get; set; }
 
-        [Required]
+        [Range(0, int.MaxValue)]
         public int PointCost { get; set; }
 
-        [Required]
+        [Range(0, int.MaxValue)]
         public int PointsAllocated { get; set; }
 
-        [Required]
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; }
 
         // Navigation Properties
         public Character? Character { get; set; }

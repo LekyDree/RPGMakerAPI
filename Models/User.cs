@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class User
+    public class User : IHasCreatedAt
     {
         public int Id { get; set; }
 
@@ -19,7 +20,7 @@ namespace RPGMakerAPI.Models
         [MaxLength(255)]
         public string PasswordHash { get; set; } = null!;
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; }
 
         // Navigation Properties
         public ICollection<Character> Characters { get; set; } = new List<Character>();
