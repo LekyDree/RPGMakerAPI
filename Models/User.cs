@@ -1,25 +1,9 @@
-using System.ComponentModel.DataAnnotations;
-using RPGMakerAPI.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace RPGMakerAPI.Models
 {
-    public class User : IHasCreatedAt
+    public class User : IdentityUser<int>
     {
-        public int Id { get; set; }
-
-        [Required]
-        [MaxLength(50)]
-        public string Username { get; set; } = null!;
-
-        [Required]
-        [MaxLength(100)]
-        [EmailAddress]
-        public string Email { get; set; } = null!;
-
-        [Required]
-        [MaxLength(255)]
-        public string PasswordHash { get; set; } = null!;
-
         public DateTime CreatedAt { get; set; }
 
         // Navigation Properties

@@ -1,16 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using RPGMakerAPI.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace RPGMakerAPI.Data
 {
-    public class RPGMakerContext : DbContext
+    public class RPGMakerContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public RPGMakerContext(DbContextOptions<RPGMakerContext> options)
             : base(options)
         {
         }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<AbilityTemplate> AbilityTemplates { get; set; }
         public DbSet<AbilityTemplateLineage> AbilityTemplateLineages { get; set; }
