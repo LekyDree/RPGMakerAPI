@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class EnumAttributeValueTemplate
+    public class EnumAttributeValueTemplate : IBelongsToUserChild
     {
         [Key]
         [ForeignKey(nameof(AttributeTemplate))]
@@ -19,6 +20,11 @@ namespace RPGMakerAPI.Models
         public AttributeTemplate? AttributeTemplate { get; set; }
         public EnumDefinition? EnumDefinition { get; set; }
         public EnumOption? DefaultOption { get; set; }
+
+        public object? GetParent()
+        {
+            return AttributeTemplate;
+        }
     }
 
 

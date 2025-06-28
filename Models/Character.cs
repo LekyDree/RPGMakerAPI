@@ -3,12 +3,12 @@ using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class Character : IHasCreatedAt
+    public class Character : IHasCreatedAt, IBelongsToUser
     {
         public int Id { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public int CreatedByUserId { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -17,7 +17,7 @@ namespace RPGMakerAPI.Models
         public DateTime CreatedAt { get; set; }
 
         // Navigation properties
-        public User? User { get; set; }
+        public User? CreatedByUser { get; set; }
         public ICollection<AbilityInstance> AbilityInstances { get; set; } = new List<AbilityInstance>();
     }
 }

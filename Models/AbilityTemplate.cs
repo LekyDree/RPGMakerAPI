@@ -4,7 +4,7 @@ using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class AbilityTemplate : IHasCreatedAt
+    public class AbilityTemplate : IHasCreatedAt, IBelongsToUser
     {
         public int Id { get; set; }
 

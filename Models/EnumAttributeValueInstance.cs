@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class EnumAttributeValueInstance
+    public class EnumAttributeValueInstance : IBelongsToUserChild
     {
         [Key]
         public int AttributeId { get; set; }
@@ -22,5 +23,10 @@ namespace RPGMakerAPI.Models
 
         [ForeignKey(nameof(CurrentOptionId))]
         public EnumOption? CurrentOption { get; set; }
+
+        public object? GetParent()
+        {
+            return AttributeInstance;
+        }
     }
 }

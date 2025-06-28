@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class AttributeInstance
+    public class AttributeInstance : IBelongsToUserChild
     {
         public int Id { get; set; }
 
@@ -15,5 +16,10 @@ namespace RPGMakerAPI.Models
 
         [ForeignKey(nameof(AbilityInstanceId))]
         public AbilityInstance? AbilityInstance { get; set; }
+
+        public object? GetParent()
+        {
+            return AbilityInstance;
+        }
     }
 }

@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class StringAttributeValueTemplate
+    public class StringAttributeValueTemplate : IBelongsToUserChild
     {
         [Key]
         [ForeignKey(nameof(AttributeTemplate))]
@@ -14,5 +15,10 @@ namespace RPGMakerAPI.Models
 
         // Navigation Property
         public AttributeTemplate? AttributeTemplate { get; set; }
+
+        public object? GetParent()
+        {
+            return AttributeTemplate;
+        }
     }
 }

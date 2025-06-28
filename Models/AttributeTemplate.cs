@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class AttributeTemplate
+    public class AttributeTemplate : IBelongsToUserChild
     {
         public int Id { get; set; }
 
@@ -15,5 +16,10 @@ namespace RPGMakerAPI.Models
 
         // Navigation Properties
         public AbilityTemplate? AbilityTemplate { get; set; }
+
+        public object? GetParent()
+        {
+            return AbilityTemplate;
+        }
     }
 }

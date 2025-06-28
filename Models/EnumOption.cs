@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class EnumOption
+    public class EnumOption : IBelongsToUserChild
     {
         public int Id { get; set; }
 
@@ -13,6 +14,11 @@ namespace RPGMakerAPI.Models
         public int EnumDefinitionId { get; set; }
 
         public EnumDefinition? EnumDefinition { get; set; }
+
+        public object? GetParent()
+        {
+            return EnumDefinition;
+        }
     }
 
 }

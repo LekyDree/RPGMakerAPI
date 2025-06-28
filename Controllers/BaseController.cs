@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,14 +22,14 @@ namespace RPGMakerAPI.Controllers
 
         // GET: api/[controller]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TEntity>>> GetAll()
+        public virtual async Task<ActionResult<IEnumerable<TEntity>>> GetAll()
         {
             return await _dbSet.ToListAsync();
         }
 
         // GET: api/[controller]/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<TEntity>> Get(int id)
+        public virtual async Task<ActionResult<TEntity>> Get(int id)
         {
             var entity = await _dbSet.FindAsync(id);
             if (entity == null)
@@ -39,7 +40,7 @@ namespace RPGMakerAPI.Controllers
 
         // POST: api/[controller]
         [HttpPost]
-        public async Task<ActionResult<TEntity>> Post(TEntity entity)
+        public virtual async Task<ActionResult<TEntity>> Post(TEntity entity)
         {
             if (entity is IHasCreatedAt createdAtEntity)
                 createdAtEntity.CreatedAt = DateTime.UtcNow;
@@ -52,8 +53,11 @@ namespace RPGMakerAPI.Controllers
 
         // PUT: api/[controller]/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, TEntity entity)
+        public virtual async Task<IActionResult> Put(int id, TEntity entity)
         {
+            if (!UserOwnsEntity(entity))
+                return Forbid();
+
             var entityId = GetEntityId(entity);
             if (entityId == null || !entityId.Equals(id))
                 return BadRequest();
@@ -77,7 +81,7 @@ namespace RPGMakerAPI.Controllers
 
         // PATCH: api/[controller]/{id}
         [HttpPatch("{id}")]
-        public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<TEntity> patchDoc)
+        public virtual async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<TEntity> patchDoc)
         {
             if (patchDoc == null)
                 return BadRequest();
@@ -93,6 +97,9 @@ namespace RPGMakerAPI.Controllers
             if (entity == null)
                 return NotFound();
 
+            if (!UserOwnsEntity(entity))
+                return Forbid();
+
             patchDoc.ApplyTo(entity, ModelState);
 
             if (!TryValidateModel(entity))
@@ -105,11 +112,14 @@ namespace RPGMakerAPI.Controllers
 
         // DELETE: api/[controller]/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public virtual async Task<IActionResult> Delete(int id)
         {
             var entity = await _dbSet.FindAsync(id);
             if (entity == null)
                 return NotFound();
+
+            if (!UserOwnsEntity(entity))
+                return Forbid();
 
             _dbSet.Remove(entity);
             await _context.SaveChangesAsync();
@@ -122,5 +132,34 @@ namespace RPGMakerAPI.Controllers
             var prop = typeof(TEntity).GetProperty("Id");
             return prop?.GetValue(entity);
         }
+
+        private int GetCurrentUserId()
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+            {
+                throw new UnauthorizedAccessException("User ID claim missing or invalid.");
+            }
+            return userId;
+        }
+
+        protected bool UserOwnsEntity(object? entity)
+        {
+            while (entity is IBelongsToUserChild child)
+            {
+                entity = child.GetParent();
+                if (entity == null)
+                    return false;
+            }
+
+            if (entity is IBelongsToUser owned)
+            {
+                return owned.CreatedByUserId == GetCurrentUserId();
+            }
+
+            return false;
+        }
+
+
     }
 }
