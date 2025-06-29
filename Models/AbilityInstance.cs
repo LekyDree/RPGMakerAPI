@@ -3,7 +3,7 @@ using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class AbilityInstance : IHasCreatedAt
+    public class AbilityInstance : IHasCreatedAt, IBelongsToUserChild
     {
         public int Id { get; set; }
 
@@ -31,5 +31,10 @@ namespace RPGMakerAPI.Models
         // Navigation Properties
         public Character? Character { get; set; }
         public AbilityTemplate? AbilityTemplate { get; set; }
+
+        public object? GetParent()
+        {
+            return Character;
+        }
     }
 }

@@ -4,7 +4,7 @@ using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class BoolAttributeValueTemplateL : IBelongsToUserChild
+    public class BoolAttributeValueTemplate : IBelongsToUserChild
     {
         [Key]
         [ForeignKey(nameof(AttributeTemplate))]

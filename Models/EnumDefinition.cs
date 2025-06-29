@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using RPGMakerAPI.Interfaces;
 
 namespace RPGMakerAPI.Models
 {
-    public class EnumDefinition
+    public class EnumDefinition : IBelongsToUser
     {
         public int Id { get; set; }
 
